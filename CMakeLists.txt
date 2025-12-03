@@ -24,6 +24,11 @@ target_link_options(${EXECUTABLE_NAME} PRIVATE
   -fsanitize=address,undefined
 )
 
+find_package(SDL3 REQUIRED)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE
+  SDL3::SDL3
+)
+
 target_include_directories(${EXECUTABLE_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/include")
 
 install(TARGETS ${EXECUTABLE_NAME} RUNTIME DESTINATION bin)

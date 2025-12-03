@@ -14,9 +14,29 @@
         ccls
         cmake
         ninja
+        
+        mesa
+        libGL
+        xorg.libX11
+        xorg.libXcursor
 
         sdl3
+
+        strace 
+        gef
       ];
+      
+      LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+        pkgs.libGL
+        pkgs.xorg.libX11
+        pkgs.xorg.libXcursor
+        pkgs.mesa
+      ];
+
+      shellHook = ''
+        Entering December Shader shell! 
+        echo "libGL: ${pkgs.libGL}"
+      '';
     };
   };
 }
