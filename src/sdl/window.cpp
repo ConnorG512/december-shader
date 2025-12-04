@@ -1,8 +1,5 @@
 #include "sdl/window.hpp"
 
-Window::Window(){}
+Window::Window() {}
 
-SDL_Window* Window::ptr()
-{
-  return window_instance_.get();
-}
+SDL_Window *Window::ptr() { return window_instance_.get(); }
