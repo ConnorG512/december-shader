@@ -34,7 +34,7 @@
       ];
 
       shellHook = ''
-        Entering December Shader shell! 
+        echo "Entering December Shader shell!"
         echo "libGL: ${pkgs.libGL}"
       '';
     };
