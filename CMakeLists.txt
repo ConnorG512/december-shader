@@ -8,6 +8,7 @@ set(EXECUTABLE_NAME decembershader)
 
 set(SOURCE_FILES
   src/main.cpp
+  src/sdl/window.cpp
 )
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
