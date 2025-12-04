@@ -1,3 +1,5 @@
+#include "sdl/window.hpp"
+
 #include <cstdlib>
 #include <print>
 
@@ -13,13 +15,9 @@ auto main() -> int {
     return EXIT_FAILURE;
   }
 
-  const auto sdl_window {SDL_CreateWindow("December Shader", 1280, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE)};
-  if( sdl_window == nullptr) {
-    std::println("Could not create SDL window! Error: {}", SDL_GetError());
-    return EXIT_FAILURE;
-  }
+  Window current_window{};
 
-  auto sdl_gl_context {SDL_GL_CreateContext(sdl_window)};
+  auto sdl_gl_context {SDL_GL_CreateContext(current_window.ptr())};
 
   bool done {false};
 
@@ -36,7 +34,7 @@ auto main() -> int {
     }
 
     // Logic
-    if(!SDL_GL_SwapWindow(sdl_window))
+    if(!SDL_GL_SwapWindow(current_window.ptr()))
     {
       std::println("Failed to swap window! Error: {}", SDL_GetError());
     }
@@ -44,7 +42,7 @@ auto main() -> int {
 
   if(!SDL_GL_DestroyContext(sdl_gl_context)) 
     std::println("Failed to destroy OpenGL context! Error: {}", SDL_GetError());
-  SDL_DestroyWindow(sdl_window);
+
   SDL_Quit();
 
   return EXIT_SUCCESS;
