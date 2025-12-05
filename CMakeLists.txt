@@ -21,13 +21,18 @@ target_compile_options(${EXECUTABLE_NAME} PRIVATE
   -Wall
   -Wextra
   -Wpedantic
-  -fsanitize=address,undefined
-  -ggdb
+  
 )
 
-target_link_options(${EXECUTABLE_NAME} PRIVATE 
-  -fsanitize=address,undefined
-)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND UNIX AND NOT APPLE)
+  target_compile_options(${EXECUTABLE_NAME} PRIVATE 
+    -fsanitize=address,undefined
+    -ggdb
+  )
+  target_link_options(${EXECUTABLE_NAME} PRIVATE 
+    -fsanitize=address,undefined
+  )
+endif()
 
 find_package(SDL3 REQUIRED)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE
