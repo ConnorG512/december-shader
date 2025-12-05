@@ -1,0 +1,22 @@
+#pragma once
+
+#include "file-operation.hpp"
+#include "glad/glad.h"
+
+#include <vector>
+#include <cstdlib>
+#include <cstdint>
+#include <string_view>
+
+class GLShader   
+{
+  public:
+    GLShader(const char* shader_path, const std::uint32_t shader_type = GL_VERTEX_SHADER);
+    ~GLShader() = default;
+
+    auto validateShader() noexcept -> std::expected<void, std::string_view>;
+
+  private:
+    std::expected<std::vector<std::uint8_t>, std::string_view> shader_data_{FileOperations::readToMemory("")};
+    std::uint32_t id {0};
+};

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(DecemberShader CXX)
+project(DecemberShader C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -9,6 +9,10 @@ set(EXECUTABLE_NAME decembershader)
 set(SOURCE_FILES
   src/main.cpp
   src/sdl/window.cpp
+  src/renderer.cpp
+  src/file-operation.cpp
+  src/shader/gl-shader.cpp
+  src/glad/glad.c
 )
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
