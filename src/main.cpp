@@ -9,7 +9,7 @@
 #include <iostream>
 #include <array>
 
-#include "glad/glad.h"
+#include "extern/glad/glad.h"
 #include "file-operation.hpp"
 #include "shader/gl-shader.hpp"
 #include "shape-primitives.hpp"
