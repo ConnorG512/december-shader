@@ -34,8 +34,8 @@ auto main() -> int
       return EXIT_FAILURE;
   }
 
-  GLShader vertex_shader ("data/shader/vertex.vert", GL_VERTEX_SHADER);
-  GLShader fragment_shader("data/shader/fragment.frag", GL_FRAGMENT_SHADER);
+  GLShader vertex_shader ("data/vertex.vert", GL_VERTEX_SHADER);
+  GLShader fragment_shader("data/fragment.frag", GL_FRAGMENT_SHADER);
   
   std::uint32_t shader_program{glCreateProgram()};
   glAttachShader(shader_program, vertex_shader.GetId());
