@@ -15,7 +15,7 @@ class GLShader
     ~GLShader() = default;
 
     auto validateShader() noexcept -> std::expected<void, std::string_view>;
-    auto GetId() noexcept -> std::uint32_t;
+    auto GetId() noexcept -> const std::uint32_t&;
     auto deleteShader() noexcept -> void;
 
   private:

@@ -36,7 +36,7 @@ auto GLShader::validateShader() noexcept -> std::expected<void, std::string_view
   return {};
 }
 
-auto GLShader::GetId() noexcept -> std::uint32_t
+auto GLShader::GetId() noexcept -> const std::uint32_t&
 {
   return id_;
 }
