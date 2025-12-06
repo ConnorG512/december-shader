@@ -11,8 +11,8 @@ set(SOURCE_FILES
   src/sdl/window.cpp
   src/renderer.cpp
   src/file-operation.cpp
-  src/shader/gl-shader.cpp
-  src/glad/glad.c
+  src/opengl/gl-shader.cpp
+  src/extern/glad/glad.c
 )
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
