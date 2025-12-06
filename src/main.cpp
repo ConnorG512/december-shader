@@ -12,6 +12,7 @@
 #include "glad/glad.h"
 #include "file-operation.hpp"
 #include "shader/gl-shader.hpp"
+#include "shape-primitives.hpp"
 
 
 auto main() -> int
@@ -54,13 +55,6 @@ auto main() -> int
   vertex_shader.deleteShader();
   fragment_shader.deleteShader();
   
-  // Triangle vertices.
-  constexpr std::array<float, 9> verticies {
-    -0.5f, -0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    0.0f, 0.5f, 0.0f
-  };
-  
   std::uint32_t VAO {0};
   std::uint32_t VBO {0};
   
@@ -69,7 +63,7 @@ auto main() -> int
 
   glBindVertexArray(VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), &verticies, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Shapes::triangle), &Shapes::triangle, GL_STATIC_DRAW);
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);

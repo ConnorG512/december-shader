@@ -7,6 +7,7 @@
       pname = "decembershader";
       version = "1.0.0";
       src = ../.;
+      dontStrip = true;
 
       nativeBuildInputs = with pkgs; [
         cmake
