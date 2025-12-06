@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstdint>
 
 namespace Shapes {
   inline constexpr std::array<float, 9> triangle {
