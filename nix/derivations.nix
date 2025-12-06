@@ -30,7 +30,7 @@
       installPhase = ''
         mkdir -p $out/bin/data 
         cp decembershader $out/bin
-        cp $src/src/opengl/src/fragment.frag $src/src/opengl/src/vertex.vert $out/bin/data/
+        cp $src/src/shader-files/fragment.frag $src/src/shader-files/vertex.vert $out/bin/data/
       '';
     };
   };
