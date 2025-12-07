@@ -1,10 +1,13 @@
 #pragma once
 
+#include "shape-primitives.hpp"
+
 #include <cstdint>
+#include <span>
 
 class Mesh {
   public:
-    Mesh();
+    Mesh(std::span<const float> verticies = Shapes::triangle);
     ~Mesh();
 
     auto bindVAO() noexcept -> void;

@@ -1,17 +1,15 @@
 #include "opengl/mesh.hpp"
 
 #include "extern/glad/glad.h"
-#include "shape-primitives.hpp"
 
-
-Mesh::Mesh()
+Mesh::Mesh(std::span<const float> verticies)
 {
   glGenVertexArrays(1, &VAO_);
   glGenBuffers(1, &VBO_);
   
   glBindVertexArray(VAO_);
   glBindBuffer(GL_ARRAY_BUFFER, VBO_);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Shapes::triangle), &Shapes::triangle, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, verticies.size() * sizeof(float), verticies.data(), GL_STATIC_DRAW);
 }
 
 Mesh::~Mesh()
