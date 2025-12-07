@@ -21,6 +21,4 @@ class GLShader
   private:
     std::expected<std::vector<std::uint8_t>, std::string_view> shader_data_{FileOperations::readToMemory("")};
     std::uint32_t id_ {0};
-    std::uint32_t VAO_{0};
-    std::uint32_t VBO_{0};
 };
