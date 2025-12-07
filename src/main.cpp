@@ -13,6 +13,7 @@
 #include "file-operation.hpp"
 #include "opengl/gl-shader.hpp"
 #include "shape-primitives.hpp"
+#include "opengl/mesh.hpp"
 
 
 auto main() -> int
@@ -55,15 +56,7 @@ auto main() -> int
   vertex_shader.deleteShader();
   fragment_shader.deleteShader();
   
-  std::uint32_t VAO {0};
-  std::uint32_t VBO {0};
-  
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
-
-  glBindVertexArray(VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Shapes::triangle), &Shapes::triangle, GL_STATIC_DRAW);
+  Mesh triangle_mesh{};
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
@@ -89,7 +82,7 @@ auto main() -> int
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(shader_program);
-    glBindVertexArray(VAO);
+    triangle_mesh.bindVAO();
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
     
@@ -101,8 +94,6 @@ auto main() -> int
 
   }
 
-  glDeleteVertexArrays(1, &VAO);
-  glDeleteBuffers(1, &VBO);
   glDeleteProgram(shader_program);
 
   if (!SDL_GL_DestroyContext(sdl_gl_context))
