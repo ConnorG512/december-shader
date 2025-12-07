@@ -19,3 +19,8 @@ Mesh::~Mesh()
   glDeleteVertexArrays(1, &VAO_);
   glDeleteBuffers(1, &VBO_);
 }
+
+auto Mesh::bindVAO() noexcept -> void
+{
+    glBindVertexArray(VAO_);
+}
