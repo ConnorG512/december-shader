@@ -36,10 +36,12 @@ auto main() -> int
       std::println("Failed to initialise GLAD!");
       return EXIT_FAILURE;
   }
-
+  
+  // Created Shaders:
   GLShader vertex_shader ("data/vertex.vert", GL_VERTEX_SHADER);
   GLShader fragment_shader("data/fragment.frag", GL_FRAGMENT_SHADER);
   
+  // Create the Shader Program and link the vertex and fragment shader into it.
   std::uint32_t shader_program{glCreateProgram()};
   glAttachShader(shader_program, vertex_shader.GetId());
   glAttachShader(shader_program, fragment_shader.GetId());
@@ -57,7 +59,9 @@ auto main() -> int
   vertex_shader.deleteShader();
   fragment_shader.deleteShader();
   
-  Mesh triangle_mesh{};
+
+  Mesh rectangle_background{Shapes::rectangle};
+  //Mesh triangle_mesh{};
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
@@ -79,10 +83,9 @@ auto main() -> int
     }
 
     // Logic
-    glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-
     //Getting Time for the phasing colour:
     std::uint64_t current_time {SDL_GetTicks() / 1000};
 
@@ -90,9 +93,10 @@ auto main() -> int
     glUseProgram(shader_program);
     glUniform1f(time_location, current_time);
 
-    triangle_mesh.bindVAO();
+    //triangle_mesh.bindVAO();
+    rectangle_background.bindVAO();
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     
     if (!SDL_GL_SwapWindow(current_window.ptr()))
     {
