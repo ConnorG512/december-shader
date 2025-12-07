@@ -1,13 +1,15 @@
 #version 330 core
 
-out vec4 FragColor;
 uniform float time; // Time 
+
+in vec2 fragmentUVCoo; // Passed in from the vertex shader.
+
+out vec4 FragColor; // Final Colour output
 
 void main()
 {
-    float red = sin(time + 0.0) * 0.5 + 0.5;
-    float green = sin(time + 2.0) * 0.5 + 0.5;
-    float blue = sin(time + 4.0) * 0.5 + 0.5;
+    vec3 upper_sky = vec3(0.031f, 0.212f, 0.278f); 
+    vec3 lower_sky = vec3(0.8f, 0.918f, 0.961f); 
 
-    FragColor = vec4(red, green, blue, 1.0f);
+    FragColor = vec4(mix(lower_sky, upper_sky, fragmentUVCoo.y), 1.0f);
 } 
