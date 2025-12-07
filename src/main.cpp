@@ -8,6 +8,7 @@
 #include <SDL3/SDL_video.h>
 #include <iostream>
 #include <array>
+#include <SDL3/SDL_time.h>
 
 #include "extern/glad/glad.h"
 #include "file-operation.hpp"
@@ -80,8 +81,15 @@ auto main() -> int
     // Logic
     glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    
 
+    //Getting Time for the phasing colour:
+    std::uint64_t current_time {SDL_GetTicks() / 1000};
+
+    std::int32_t time_location {glGetUniformLocation(shader_program, "time")};
     glUseProgram(shader_program);
+    glUniform1f(time_location, current_time);
+
     triangle_mesh.bindVAO();
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
