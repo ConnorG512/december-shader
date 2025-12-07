@@ -38,8 +38,8 @@ auto main() -> int
   }
   
   // Created Shaders:
-  GLShader vertex_shader ("data/vertex.vert", GL_VERTEX_SHADER);
-  GLShader fragment_shader("data/fragment.frag", GL_FRAGMENT_SHADER);
+  GLShader vertex_shader ("data/background.vert", GL_VERTEX_SHADER);
+  GLShader fragment_shader("data/background.frag", GL_FRAGMENT_SHADER);
   
   // Create the Shader Program and link the vertex and fragment shader into it.
   std::uint32_t shader_program{glCreateProgram()};
