@@ -59,13 +59,8 @@ auto main() -> int
   vertex_shader.deleteShader();
   fragment_shader.deleteShader();
   
-
   Mesh rectangle_background{Shapes::rectangle};
-  //Mesh triangle_mesh{};
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-  glEnableVertexAttribArray(0);
-  
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
 
@@ -93,10 +88,8 @@ auto main() -> int
     glUseProgram(shader_program);
     glUniform1f(time_location, current_time);
 
-    //triangle_mesh.bindVAO();
     rectangle_background.bindVAO();
-
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    rectangle_background.draw();
     
     if (!SDL_GL_SwapWindow(current_window.ptr()))
     {
