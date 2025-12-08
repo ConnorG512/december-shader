@@ -1,118 +1,34 @@
 #include "sdl/window.hpp"
+#include "application-loop.hpp"
 
-#include <cstdlib>
-#include <print>
-#include <vector>
-#include <expected>
-#include <SDL3/SDL.h>
 #include <SDL3/SDL_video.h>
-#include <iostream>
-#include <array>
 #include <SDL3/SDL_time.h>
-
-#include "extern/glad/glad.h"
-#include "file-operation.hpp"
-#include "opengl/gl-shader.hpp"
-#include "shape-primitives.hpp"
-#include "opengl/mesh.hpp"
-
-
 
 auto main() -> int
 {
-
   SDL_SetAppMetadataProperty("December Shader", "1.0");
-
+  
+  // Init video
   if (!SDL_Init(SDL_INIT_VIDEO))
   {
-    std::println("Could not init SDL video! Error: {}", SDL_GetError());
-    return EXIT_FAILURE;
+    throw std::runtime_error("Could not init SDL video!");
   }
 
-  Window current_window{};
-
-  auto sdl_gl_context{SDL_GL_CreateContext(current_window.ptr())};
-  if(!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress))
-  {
-      std::println("Failed to initialise GLAD!");
-      return EXIT_FAILURE;
-  }
+  App::MainLoop application_loop{};
   
-  // Created Shaders:
-  OGL::Shader<OGL::VertexShader> background_vertex("data/background.vert");
-  OGL::Shader<OGL::FragmentShader> background_fragment("data/background.frag");
-  OGL::Shader<OGL::VertexShader> triangle_vertex("data/triangle.vert");
-  OGL::Shader<OGL::FragmentShader> triangle_fragment("data/triangle.frag");
-  
-  // Create the Shader Program and link the vertex and fragment shader into it.
-  std::uint32_t shader_program{glCreateProgram()};
-  glAttachShader(shader_program, background_vertex.Id());
-  glAttachShader(shader_program, background_fragment.Id());
-  glLinkProgram(shader_program);
-
-  std::int32_t success{0};
-  std::array<char, 512> info_log{};
-  glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
-  if (!success)
+  while(true)
   {
-    glGetProgramInfoLog(shader_program, 512, nullptr, info_log.data());
-    std::println("ERROR::SHADER::PROGRAM::LINKING_FAILED {}", info_log.data());
-    return EXIT_FAILURE;
-  }
-  background_vertex.deleteShader();
-  background_fragment.deleteShader();
-  triangle_vertex.deleteShader();
-  triangle_fragment.deleteShader();
-  
-  Mesh rectangle_background{Shapes::rectangle};
-  Mesh triangle_mesh{Shapes::triangle};
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
-
-  bool done{false};
-  while (!done)
-  {
-    SDL_Event event;
-
-    while (SDL_PollEvent(&event))
+    if(application_loop.run())
     {
-      if (event.type == SDL_EVENT_QUIT)
-      {
-        done = true;
-      }
+      SDL_Quit();
+      return EXIT_SUCCESS;
     }
-
-    // Logic
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    //Getting Time for the phasing colour:
-    std::uint64_t current_time {SDL_GetTicks() / 1000};
-
-    std::int32_t time_location {glGetUniformLocation(shader_program, "time")};
-    glUseProgram(shader_program);
-    glUniform1f(time_location, current_time);
-
-    rectangle_background.bindVAO();
-    rectangle_background.draw();
-    triangle_mesh.bindVAO();
-    triangle_mesh.draw();
-    
-    if (!SDL_GL_SwapWindow(current_window.ptr()))
-    {
-      std::println("Failed to swap window! Error: {}", SDL_GetError());
-      return EXIT_FAILURE;
-    }
-
   }
-
-  glDeleteProgram(shader_program);
-
-  if (!SDL_GL_DestroyContext(sdl_gl_context))
-    std::println("Failed to destroy OpenGL context! Error: {}", SDL_GetError());
-
-  SDL_Quit();
-
-  return EXIT_SUCCESS;
 }
+    //Getting Time for the phasing colour:
+    //std::uint64_t current_time {SDL_GetTicks() / 1000};
+    //std::int32_t time_location {glGetUniformLocation(shader_program, "time")};
+    //glUniform1f(time_location, current_time);
+    
+    // Logic
+

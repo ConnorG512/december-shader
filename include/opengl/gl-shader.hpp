@@ -37,7 +37,7 @@ class Shader {
       glDeleteShader(id_);
     }
 
-    auto Id() noexcept -> const std::int32_t&
+    auto Id() noexcept -> std::int32_t
     {
       return id_;
     }

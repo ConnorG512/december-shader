@@ -11,6 +11,8 @@ set(SOURCE_FILES
   src/sdl/window.cpp
   src/file-operation.cpp
   src/opengl/mesh.cpp
+  src/application-loop.cpp
+  src/opengl/gpu-buffer.cpp
   src/extern/glad/glad.c
 )
 
