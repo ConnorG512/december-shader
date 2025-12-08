@@ -72,15 +72,15 @@ class Shader {
       {
         glGetShaderInfoLog(id_, 512, NULL, info_log.data());
         return std::unexpected<const char*>("Failed to validate shader!");
-      }
 
-      if constexpr (std::same_as<T, FragmentShader>)
-      {
-        std::println(stderr, "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n {}" , info_log.data());
-      }
-      else if constexpr (std::same_as<T, VertexShader>)
-      {
-        std::println(stderr, "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n {}" , info_log.data());
+        if constexpr (std::same_as<T, FragmentShader>)
+        {
+          std::println(stderr, "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n {}" , info_log.data());
+        }
+        else if constexpr (std::same_as<T, VertexShader>)
+        {
+          std::println(stderr, "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n {}" , info_log.data());
+        }
       }
 
       return {};
