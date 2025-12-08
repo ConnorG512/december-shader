@@ -13,7 +13,7 @@ namespace App
       MainLoop();
       ~MainLoop() = default;
       
-      auto run() -> bool;     
+      auto run() -> void;     
 
     private:
       Window current_window_ {};

@@ -18,14 +18,17 @@ App::MainLoop::MainLoop()
   
 }
 
-auto App::MainLoop::run() -> bool 
+auto App::MainLoop::run() -> void 
 {
+  bool is_running {true};
+  while(is_running)
+  {
     SDL_Event event{};
     while (SDL_PollEvent(&event))
     {
       if (event.type == SDL_EVENT_QUIT)
       {
-        return true;
+        is_running = false;
       }
       
       // Main Loop.
@@ -39,5 +42,6 @@ auto App::MainLoop::run() -> bool
 
       current_window_.swapWindow();
     }
-    return false;
+  }
+  return;
 }
