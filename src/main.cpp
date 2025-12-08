@@ -7,23 +7,11 @@
 auto main() -> int
 {
   SDL_SetAppMetadataProperty("December Shader", "1.0");
-  
-  // Init video
-  if (!SDL_Init(SDL_INIT_VIDEO))
-  {
-    throw std::runtime_error("Could not init SDL video!");
-  }
-
   App::MainLoop application_loop{};
   
-  while(true)
-  {
-    if(application_loop.run())
-    {
-      SDL_Quit();
-      return EXIT_SUCCESS;
-    }
-  }
+  application_loop.run();
+  
+  return EXIT_SUCCESS;
 }
     //Getting Time for the phasing colour:
     //std::uint64_t current_time {SDL_GetTicks() / 1000};
