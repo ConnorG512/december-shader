@@ -30,7 +30,7 @@ auto GLShader::validateShader() noexcept -> std::expected<void, std::string_view
   {
     glGetShaderInfoLog(id_, 512, NULL, info_log.data());
     std::println(stderr, "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n {}" , info_log.data());
-    return std::unexpected<std::string_view>("Failed to valid_ate shader!");
+    return std::unexpected<std::string_view>("Failed to validate shader!");
   }
 
   return {};

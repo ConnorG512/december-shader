@@ -11,8 +11,10 @@ class Mesh {
     ~Mesh();
 
     auto bindVAO() noexcept -> void;
+    auto draw() noexcept -> void;
     
   private:
+    std::span<const float> mesh_{};
     std::uint32_t VAO_ {0};
     std::uint32_t VBO_ {0};
 };

@@ -10,6 +10,13 @@ namespace Shapes {
     0.0f, 0.5f, 0.0f
   };
   
+  inline constexpr std::array<float, 18> rgb_triangle {
+    // Shape            // Colour
+    -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+    0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,
+    0.0f, 0.5f, 0.0f,   0.0f, 0.0f, 1.0f,
+  };
+  
   inline constexpr std::array<float, 18> rectangle {
      // first triangle
      1.0f,  1.0f, 0.0f,
