@@ -8,10 +8,8 @@ out vec4 FragColor; // Final Colour output
 
 void main()
 {
-    // Create two colours that get blended between.
-    vec3 upper_sky = vec3(0.031f, 0.212f, 0.278f); 
-    vec3 lower_sky = vec3(0.8f, 0.918f, 0.961f); 
-    vec3 combined_sky = vec3(mix(lower_sky, upper_sky, fragmentUVCoo.y));
+    vec3 sky_bottom_colour = vec3(0.2, 0.247, 0.329);
+    vec3 sky_top_colour = vec3(0.51, 0.714, 0.82);
 
-    FragColor = vec4(mix(lower_sky, upper_sky, fragmentUVCoo.y), 1.0f);
+    FragColor = vec4(mix(sky_bottom_colour, sky_top_colour, fragmentUVCoo.y), 1.0);
 } 
