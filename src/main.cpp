@@ -17,6 +17,7 @@
 #include "opengl/mesh.hpp"
 
 
+
 auto main() -> int
 {
 
@@ -38,13 +39,15 @@ auto main() -> int
   }
   
   // Created Shaders:
-  GLShader vertex_shader ("data/background.vert", GL_VERTEX_SHADER);
-  GLShader fragment_shader("data/background.frag", GL_FRAGMENT_SHADER);
+  OGL::Shader<OGL::VertexShader> background_vertex("data/background.vert");
+  OGL::Shader<OGL::FragmentShader> background_fragment("data/background.frag");
+  OGL::Shader<OGL::VertexShader> triangle_vertex("data/triangle.vert");
+  OGL::Shader<OGL::FragmentShader> triangle_fragment("data/triangle.frag");
   
   // Create the Shader Program and link the vertex and fragment shader into it.
   std::uint32_t shader_program{glCreateProgram()};
-  glAttachShader(shader_program, vertex_shader.GetId());
-  glAttachShader(shader_program, fragment_shader.GetId());
+  glAttachShader(shader_program, background_vertex.Id());
+  glAttachShader(shader_program, background_fragment.Id());
   glLinkProgram(shader_program);
 
   std::int32_t success{0};
@@ -56,10 +59,13 @@ auto main() -> int
     std::println("ERROR::SHADER::PROGRAM::LINKING_FAILED {}", info_log.data());
     return EXIT_FAILURE;
   }
-  vertex_shader.deleteShader();
-  fragment_shader.deleteShader();
+  background_vertex.deleteShader();
+  background_fragment.deleteShader();
+  triangle_vertex.deleteShader();
+  triangle_fragment.deleteShader();
   
   Mesh rectangle_background{Shapes::rectangle};
+  Mesh triangle_mesh{Shapes::triangle};
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
@@ -90,6 +96,8 @@ auto main() -> int
 
     rectangle_background.bindVAO();
     rectangle_background.draw();
+    triangle_mesh.bindVAO();
+    triangle_mesh.draw();
     
     if (!SDL_GL_SwapWindow(current_window.ptr()))
     {
