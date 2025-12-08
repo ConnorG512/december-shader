@@ -2,12 +2,21 @@
 #include "extern/glad/glad.h"
 
 #include <print>
+#include <cassert>
 
 Window::Window() 
 {
+  assert(window_instance_ != nullptr);
+
+  // Init video
+  if (!SDL_Init(SDL_INIT_VIDEO))
+  {
+    throw std::runtime_error("Could not init SDL video!");
+  }
+
   if(window_context_ == NULL)
   {
-    std::println(stderr, "Failed to create window context", SDL_GetError());
+    std::println(stderr, "Failed to create window context. {}", SDL_GetError());
     throw std::runtime_error("Failed to initialise GL Context!");
   }
   
