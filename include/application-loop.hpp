@@ -21,9 +21,13 @@ namespace App
 
       OGL::Shader<OGL::VertexShader> background_vertex{"data/background.vert"};
       OGL::Shader<OGL::FragmentShader> background_fragment{"data/background.frag"};
+      OGL::Shader<OGL::VertexShader> triangle_vertex{"data/triangle.vert"};
+      OGL::Shader<OGL::FragmentShader> triangle_fragment{"data/triangle.frag"};
 
       OGL::Mesh background_mesh{Shapes::rectangle};
-
-      std::uint32_t shader_program_{glCreateProgram()};
+      OGL::Mesh triangle_mesh{Shapes::triangle, Shapes::rectangle.size() * sizeof(float)};
+      
+      GLuint background_program_{0};
+      GLuint triangle_program_{0};
   };
 }

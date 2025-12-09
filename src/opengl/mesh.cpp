@@ -2,7 +2,7 @@
 
 #include "extern/glad/glad.h"
 
-OGL::Mesh::Mesh(std::span<const float> verticies)
+OGL::Mesh::Mesh(std::span<const float> verticies, std::size_t offset)
   : mesh_{verticies}
 {
   glGenVertexArrays(1, &VAO_);
@@ -10,7 +10,7 @@ OGL::Mesh::Mesh(std::span<const float> verticies)
   glBindVertexArray(VAO_);
   glBufferData(GL_ARRAY_BUFFER, mesh_.size() * sizeof(float), mesh_.data(), GL_STATIC_DRAW);
   
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)offset);
   glEnableVertexAttribArray(0);
 }
 
