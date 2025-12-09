@@ -3,26 +3,36 @@
 
 #include <print>
 #include <cassert>
+#include <SDL3/SDL_video.h>
 
 Window::Window() 
 {
-  assert(window_instance_ != nullptr);
-
   // Init video
   if (!SDL_Init(SDL_INIT_VIDEO))
   {
     throw std::runtime_error("Could not init SDL video!");
   }
-
-  if(window_context_ == NULL)
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+  
+  window_instance_.reset(SDL_CreateWindow("December Shader", 1280, 720, SDL_WINDOW_OPENGL));
+  assert(window_instance_ != nullptr);
+  
+  sdl_context_ = SDL_GL_CreateContext(window_instance_.get());
+  if(sdl_context_ == nullptr)
   {
     std::println(stderr, "Failed to create window context. {}", SDL_GetError());
     throw std::runtime_error("Failed to initialise GL Context!");
   }
+  
+  int gl_min;
+  int gl_max;
 
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+  SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &gl_max);
+  SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &gl_min);
+  std::println("compiled with SDL {}.{}", SDL_MAJOR_VERSION, SDL_MINOR_VERSION);
+  std::println("GL Max: {}, GL Min {}.", gl_max, gl_min);
   
   // GLAD load
   if(!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress))
@@ -33,8 +43,6 @@ Window::Window()
 
 Window::~Window()
 {
-  if (!SDL_GL_DestroyContext(window_context_))
-    std::println("Failed to destroy OpenGL context! Error: {}", SDL_GetError());
 }
 
 auto Window::swapWindow() -> void
