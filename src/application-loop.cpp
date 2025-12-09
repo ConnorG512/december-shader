@@ -7,14 +7,21 @@
 
 App::MainLoop::MainLoop()
 {
+  // Binding rectangle
   gpu_buffer_.bindData(std::span<const float>(Shapes::rectangle));
-
   glAttachShader(shader_program_, background_vertex.Id());
   glAttachShader(shader_program_, background_fragment.Id());
+
+  gpu_buffer_.bindData(std::span<const float>(Shapes::triangle));
+  glAttachShader(shader_program_, triangle_vertex.Id());
+  glAttachShader(shader_program_, triangle_fragment.Id());
+
   glLinkProgram(shader_program_);
 
   background_vertex.deleteShader();
   background_fragment.deleteShader();
+  triangle_vertex.deleteShader();
+  triangle_fragment.deleteShader();
   
 }
 
@@ -36,9 +43,12 @@ auto App::MainLoop::run() -> void
       glClear(GL_COLOR_BUFFER_BIT);
       
       background_mesh.bindVAO();
-      background_mesh.draw();
+      triangle_mesh.bindVAO();
 
       glUseProgram(shader_program_);
+      
+      background_mesh.draw();
+      triangle_mesh.draw();
 
       current_window_.swapWindow();
     }
