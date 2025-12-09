@@ -19,6 +19,10 @@ Window::Window()
     std::println(stderr, "Failed to create window context. {}", SDL_GetError());
     throw std::runtime_error("Failed to initialise GL Context!");
   }
+
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
   
   // GLAD load
   if(!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress))
