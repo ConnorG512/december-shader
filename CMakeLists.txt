@@ -27,11 +27,11 @@ target_compile_options(${EXECUTABLE_NAME} PRIVATE
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND UNIX AND NOT APPLE)
   target_compile_options(${EXECUTABLE_NAME} PRIVATE 
-    -fsanitize=address,undefined
+    #-fsanitize=address,undefined
     -ggdb
   )
   target_link_options(${EXECUTABLE_NAME} PRIVATE 
-    -fsanitize=address,undefined
+    #-fsanitize=address,undefined
   )
 endif()
 
