@@ -9,6 +9,7 @@ set(EXECUTABLE_NAME decembershader)
 set(SOURCE_FILES
   src/main.cpp
   src/sdl/window.cpp
+  src/sdl/attributes.cpp
   src/file-operation.cpp
   src/opengl/opengl.cpp
   src/opengl/shader.cpp
