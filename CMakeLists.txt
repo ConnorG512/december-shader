@@ -11,6 +11,7 @@ set(SOURCE_FILES
   src/sdl/window.cpp
   src/file-operation.cpp
   src/opengl/opengl.cpp
+  src/opengl/shader.cpp
   src/extern/glad/glad.c
 )
 
