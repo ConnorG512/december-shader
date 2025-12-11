@@ -1,5 +1,6 @@
 #include "sdl/window.hpp"
 #include "sdl/attributes.hpp"
+#include "sdl/context.hpp"
 #include "extern/glad/glad.h"
 #include "shape-primitives.hpp"
 #include "opengl/opengl.hpp"
@@ -17,7 +18,8 @@ auto main() -> int
   
   // Variables 
   SDL::GL::Attributes sdl_attributes{};
-  Window current_window{};
+  SDL::Window current_window{};
+  SDL::GL::Context gl_context{current_window.ptr()};
 
   // Setup
   // Rectangle

@@ -10,6 +10,7 @@ set(SOURCE_FILES
   src/main.cpp
   src/sdl/window.cpp
   src/sdl/attributes.cpp
+  src/sdl/context.cpp
   src/file-operation.cpp
   src/opengl/opengl.cpp
   src/opengl/shader.cpp
@@ -25,7 +26,6 @@ target_compile_options(${EXECUTABLE_NAME} PRIVATE
   -Wall
   -Wextra
   -Wpedantic
-  
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND UNIX AND NOT APPLE)
