@@ -1,4 +1,5 @@
 #include "sdl/window.hpp"
+#include "sdl/attributes.hpp"
 #include "extern/glad/glad.h"
 #include "shape-primitives.hpp"
 #include "opengl/opengl.hpp"
@@ -15,6 +16,7 @@ auto main() -> int
   SDL_SetAppMetadataProperty("December Shader", "1.0");
   
   // Variables 
+  SDL::GL::Attributes sdl_attributes{};
   Window current_window{};
 
   // Setup
