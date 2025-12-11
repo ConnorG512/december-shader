@@ -12,6 +12,7 @@ set(SOURCE_FILES
   src/file-operation.cpp
   src/opengl/opengl.cpp
   src/opengl/shader.cpp
+  src/opengl/render-target.cpp
   src/extern/glad/glad.c
 )
 
