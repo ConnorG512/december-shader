@@ -3,6 +3,7 @@
 #include "shape-primitives.hpp"
 #include "opengl/opengl.hpp"
 #include "opengl/shader.hpp"
+#include "opengl/shader-program.hpp"
 
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_time.h>
@@ -24,12 +25,8 @@ auto main() -> int
   
   OGL::Shader rectangle_vertex{OGL::ShaderType::vertex, "data/background.vert"};
   OGL::Shader rectangle_fragment{OGL::ShaderType::fragment, "data/background.frag"};
-  
-  // Shader Program
-  std::uint32_t shader_program_rectangle{glCreateProgram()};
-  OGL::attachAndLinkShader({rectangle_vertex.GetId(), rectangle_fragment.GetId()}, shader_program_rectangle);
-  glUseProgram(shader_program_rectangle);
-  
+  OGL::ShaderProgram rectangle_program({rectangle_vertex.GetId(), rectangle_fragment.GetId()});
+
   // VAO_rectangle:
   std::uint32_t VAO_rectangle {};
   glGenVertexArrays(1, &VAO_rectangle);
@@ -47,11 +44,7 @@ auto main() -> int
   
   OGL::Shader triangle_vertex{OGL::ShaderType::vertex, "data/triangle.vert"};
   OGL::Shader triangle_fragment{OGL::ShaderType::fragment, "data/triangle.frag"};
-  
-  // Shader Program
-  std::uint32_t shader_program_triangle{glCreateProgram()};
-  OGL::attachAndLinkShader({triangle_vertex.GetId(), triangle_fragment.GetId()}, shader_program_triangle);
-  glUseProgram(shader_program_triangle);
+  OGL::ShaderProgram triangle_program({triangle_vertex.GetId(), triangle_fragment.GetId()});
   
   // VAO:
   std::uint32_t VAO {};
@@ -82,11 +75,11 @@ auto main() -> int
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glUseProgram(shader_program_rectangle);
+    rectangle_program.use();
     glBindVertexArray(VAO_rectangle);
     glDrawArrays(GL_TRIANGLES, 0, 6);
-
-    glUseProgram(shader_program_triangle);
+    
+    triangle_program.use();
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
