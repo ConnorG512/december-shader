@@ -12,11 +12,14 @@ Window::Window()
   {
     throw std::runtime_error("Could not init SDL video!");
   }
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-  
-  window_instance_.reset(SDL_CreateWindow("December Shader", 1280, 720, SDL_WINDOW_OPENGL));
+
+  setSDLAttr({
+      {SDL_GL_CONTEXT_MAJOR_VERSION, 3},
+      {SDL_GL_CONTEXT_MINOR_VERSION, 3},
+      {SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE},
+  });
+
+  window_instance_.reset(SDL_CreateWindow("December Shader", 1600, 900, SDL_WINDOW_OPENGL));
   assert(window_instance_ != nullptr);
   
   sdl_context_ = SDL_GL_CreateContext(window_instance_.get());
@@ -41,10 +44,6 @@ Window::Window()
   }
 }
 
-Window::~Window()
-{
-}
-
 auto Window::swapWindow() -> void
 {
   if (!SDL_GL_SwapWindow(window_instance_.get()))
@@ -52,3 +51,11 @@ auto Window::swapWindow() -> void
 }
 
 SDL_Window *Window::ptr() { return window_instance_.get(); }
+
+auto Window::setSDLAttr(std::vector<std::pair<SDL_GLAttr, std::int32_t>> attr) const noexcept -> void
+{
+  for( const auto& [attribute, value] : attr)
+  {
+    SDL_GL_SetAttribute(attribute, value);
+  }
+}
