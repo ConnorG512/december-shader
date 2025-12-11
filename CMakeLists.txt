@@ -14,6 +14,7 @@ set(SOURCE_FILES
   src/opengl/shader.cpp
   src/opengl/shader-program.cpp
   src/opengl/render-target.cpp
+  src/opengl/vao.cpp
   src/extern/glad/glad.c
 )
 
