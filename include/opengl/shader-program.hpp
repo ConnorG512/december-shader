@@ -10,6 +10,8 @@ namespace OGL
     public:
       explicit ShaderProgram(const std::vector<std::uint32_t> shaders);
       ~ShaderProgram();
+
+      auto use() const noexcept -> void;
     
     private:
       std::uint32_t id_{0};

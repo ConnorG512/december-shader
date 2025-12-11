@@ -21,3 +21,8 @@ OGL::ShaderProgram::~ShaderProgram()
     glAttachShader(id_, shader);
   }
 }
+
+auto OGL::ShaderProgram::use() const noexcept -> void
+{
+  glUseProgram(id_);
+}
