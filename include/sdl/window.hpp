@@ -9,10 +9,7 @@ class Window
 {
 public:
   Window();
-  ~Window() = default;
-  
   auto swapWindow() -> void;
-
   SDL_Window *ptr();
 
 private:
