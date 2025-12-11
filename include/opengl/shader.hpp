@@ -14,10 +14,10 @@ enum class ShaderType
 class Shader 
 {
   public:
-    Shader(OGL::ShaderType shader_type);
+    Shader(OGL::ShaderType shader_type, const char * shader_path);
     ~Shader() = default;
 
-    auto GetId() const noexcept ->  std::uint32_t;
+    auto GetId() const noexcept -> std::uint32_t;
 
   private:
     std::uint32_t shader_id_ {0};
