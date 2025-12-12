@@ -9,10 +9,14 @@ set(EXECUTABLE_NAME decembershader)
 set(SOURCE_FILES
   src/main.cpp
   src/sdl/window.cpp
+  src/sdl/attributes.cpp
+  src/sdl/context.cpp
   src/file-operation.cpp
-  src/opengl/mesh.cpp
-  src/application-loop.cpp
-  src/opengl/gpu-buffer.cpp
+  src/opengl/opengl.cpp
+  src/opengl/shader.cpp
+  src/opengl/shader-program.cpp
+  src/opengl/render-target.cpp
+  src/opengl/vao.cpp
   src/extern/glad/glad.c
 )
 
@@ -22,16 +26,15 @@ target_compile_options(${EXECUTABLE_NAME} PRIVATE
   -Wall
   -Wextra
   -Wpedantic
-  
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND UNIX AND NOT APPLE)
   target_compile_options(${EXECUTABLE_NAME} PRIVATE 
-    -fsanitize=address,undefined
+    #-fsanitize=address,undefined
     -ggdb
   )
   target_link_options(${EXECUTABLE_NAME} PRIVATE 
-    -fsanitize=address,undefined
+    #-fsanitize=address,undefined
   )
 endif()
 

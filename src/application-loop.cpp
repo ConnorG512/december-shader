@@ -7,15 +7,7 @@
 
 App::MainLoop::MainLoop()
 {
-  gpu_buffer_.bindData(std::span<const float>(Shapes::rectangle));
-
-  glAttachShader(shader_program_, background_vertex.Id());
-  glAttachShader(shader_program_, background_fragment.Id());
-  glLinkProgram(shader_program_);
-
-  background_vertex.deleteShader();
-  background_fragment.deleteShader();
-  
+  // Background: 
 }
 
 auto App::MainLoop::run() -> void 
@@ -34,11 +26,6 @@ auto App::MainLoop::run() -> void
       // Main Loop.
       glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT);
-      
-      background_mesh.bindVAO();
-      background_mesh.draw();
-
-      glUseProgram(shader_program_);
 
       current_window_.swapWindow();
     }

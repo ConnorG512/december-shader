@@ -3,19 +3,20 @@
 #include <SDL3/SDL.h>
 #include <memory>
 #include <expected>
+#include <vector>
 
+namespace SDL {
 class Window
 {
 public:
   Window();
-  ~Window();
-  
   auto swapWindow() -> void;
-
-  SDL_Window *ptr();
+  auto ptr() const noexcept -> SDL_Window*;
 
 private:
   std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window_instance_{
-      SDL_CreateWindow("December Shader", 1280, 720, SDL_WINDOW_OPENGL ), &SDL_DestroyWindow};
-  SDL_GLContext window_context_{SDL_GL_CreateContext(window_instance_.get())};
+      nullptr, &SDL_DestroyWindow};
+
+  auto setSDLAttr(std::vector<std::pair<SDL_GLAttr, std::int32_t>> attr) const noexcept -> void;
 };
+}

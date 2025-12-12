@@ -32,6 +32,7 @@
         pkgs.xorg.libX11
         pkgs.xorg.libXcursor
         pkgs.mesa
+        pkgs.renderdoc
       ];
 
       shellHook = ''
