@@ -12,10 +12,9 @@ namespace SDL
     {
       public:
         explicit Context(SDL_Window *window_instance);
-        ~Context();
       
       private:
-        SDL_GLContext gl_context_{nullptr};
+        std::unique_ptr<SDL_GLContextState, decltype(&SDL_GL_DestroyContext)> context_ {nullptr, &SDL_GL_DestroyContext}; 
     };
   }
 }
